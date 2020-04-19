@@ -13,7 +13,7 @@ class App extends Component {
         this.handleValueChange = this.handleValueChange.bind(this); 
       }
 
-    //검색 시 새롭게 랜더링
+    //새롭게 랜더링
     stateRefresh() {
         this.setState({
             memos: '',
@@ -31,11 +31,6 @@ class App extends Component {
         .catch(err => console.log(err));
     }
 
-    //class 컴포넌트의 생명주기 (컴포넌트가 DOM 에서 사라진 후 실행 메소드)
-    /* componentWillMount() {
-
-    } */
-
     callApi = async () => {
         const response = await fetch('/api/memos');
         const body = await response.json();
@@ -49,13 +44,21 @@ class App extends Component {
       }
 
     render() {
+        const filterdMemoList = (data) => {
+            data = data.filter((c) => {
+                return c.title.indexOf(this.state.searchKeyword)>-1;
+            });
+            return data.map((c) => {
+                return  <Memo stateRefresh={this.stateRefresh} key={c.id} id={c.id} image={c.image} title={c.title} content={c.content}/>  
+            });
+        }
+
         return(
             <div>
                 <MemoCreate stateRefresh={this.stateRefresh}/>
+                <input placeholder="검색하기" name="searchKeyword" value={this.state.searchKeyword} onChange={this.handleValueChange}></input>
                 <ul>
-                {this.state.memos ? this.state.memos.map( c => (            
-                    <Memo key={c.id} id={c.id} image={c.image} title={c.title} content={c.content}/>        
-                )) : "" }
+                {this.state.memos ? filterdMemoList(this.state.memos) : <div>불러올 메모가 없습니다</div> }
                 </ul>
             </div>
         )

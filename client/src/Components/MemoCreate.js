@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { post } from 'axios';
-import qs from 'qs';
 
 class MemoCreate extends Component {
     constructor(props){
@@ -61,7 +60,7 @@ class MemoCreate extends Component {
             <div>
                 <div>메모입력</div>
                 <form onSubmit={this.inputFormSubmit}>
-                    <input type="file"  value={this.state.memoImg} file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}></input>
+                    <input type="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}></input>
                     <input type="text" placeholder="제목" name="title" value={this.state.title} onChange={this.inputValueChange}></input>
                     <input type="textarea" placeholder="내용" name="content" value={this.state.content}  onChange={this.inputValueChange}></input>
                 <button type="submit">추가</button>
