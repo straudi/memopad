@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import Memo from './Components/Memo';
-import MemoCreate from './Components/MemoCreate';
+import Memo from './Memo';
 
-class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          memos: '',
-          searchKeyword: ''
-        }
-        this.stateRefresh = this.stateRefresh.bind(this);
-        this.handleValueChange = this.handleValueChange.bind(this); 
-      }
+class MemoList extends Component {
+    state = {
+        memos : '',
+        /* searchKeyword: '' */
+    }
 
     //검색 시 새롭게 랜더링
     stateRefresh() {
@@ -40,26 +34,19 @@ class App extends Component {
         const response = await fetch('/api/memos');
         const body = await response.json();
         return body;
-      }
-
-      handleValueChange(e) {
-        let nextState = {};
-        nextState[e.target.name] = e.target.value;
-        this.setState(nextState);
-      }
+    }
 
     render() {
         return(
             <div>
-                <MemoCreate stateRefresh={this.stateRefresh}/>
                 <ul>
-                {this.state.memos ? this.state.memos.map( c => (            
-                    <Memo key={c.id} id={c.id} image={c.image} title={c.title} content={c.content}/>        
-                )) : "" }
-                </ul>
+            {this.state.memos ? this.state.memos.map( c => (            
+                <Memo key={c.id} id={c.id} title={c.title} content={c.content} />        
+            )) : "" }
+             </ul>
             </div>
         )
     }
 }
 
-export default App;
+export default MemoList;

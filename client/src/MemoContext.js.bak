@@ -1,0 +1,51 @@
+import React, { createContext, useReducer, useContext } from 'react';
+import * as api from '../server';
+import createAsyncDispatcher , { initialAsyncState, createAsyncHandler } from './asyncActionUtils.js.bak';
+
+const initialState = {
+    memos: initialAsyncState
+}
+
+const MemosHandler = createAsyncHandler('GET_MEMOS', 'memos');
+
+function usersReducer( state, action ){
+    switch (action.type) {
+        case 'GET_MEMOS':
+        case 'GET_MEMOS_SUCCESS':
+        case 'GET_MEMOS_ERROR':
+            return MemosHandler(state,action);
+        default :
+        new Error(`unhandled action type ${action.type}`);
+    }  
+}
+
+const MemosStateContext = createContext(null);
+const MemosDispatchContext = createContext(null);
+
+export function MemosProvider( { children } ) {
+    const [state, dispatch] = useReducer(usersReducer, initalState);
+
+    return(
+        <MemosStateContext.Provider value={state}>
+            <MemosDispatchContext value={dispatch}>
+                {children}
+            </MemosDispatchContext>
+        </MemosStateContext.Provider>
+    )
+}
+
+export function useMemosState() {
+    const state = useContext(MemosStateContext);
+    if(!state) {
+        throw new Error('error memo state provider');
+    }
+}
+
+export function useMemoDispatch() {
+    const dispatch = useContext(MemosDispatchContext);
+    if(!dispatch) {
+        throw new Error('error memo dispatch provider');
+    }
+}
+
+export const getMemos = createAsyncDispatcher('GET_MEMOS', api.getMemos)
