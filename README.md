@@ -18,9 +18,9 @@ REST api 사용하여 메모사이트 구성
   meterial-ui 라이브러리
   font-awesome 
   
-  - Javascript
+- Javascript
   React
   Node.js + express
   
-  - DB
+- DB
   Aws rds , mysql
