@@ -32,7 +32,6 @@ class Memo extends Component {
 
     onToggle(id,data) {
         const importYn = data === 1 ? 0 : 1;
-        console.log(importYn);
         const url = '/api/memos/'+id;
         fetch(url, {
             method : 'put',

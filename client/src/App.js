@@ -56,12 +56,10 @@ class App extends Component {
           searchKeyword: '',
           focused: false
         }
-        this.stateRefresh = this.stateRefresh.bind(this);
-        this.handleValueChange = this.handleValueChange.bind(this); 
       }
     ;
     //새롭게 랜더링
-    stateRefresh() {
+    stateRefresh = () => {
         this.setState({
             memos: '',
             searchKeyword: ''
@@ -86,7 +84,7 @@ class App extends Component {
         return body;
       }
 
-    handleValueChange(e) {
+    handleValueChange = (e) => {
         let nextState = {};
         nextState[e.target.name] = e.target.value;
         this.setState(nextState);

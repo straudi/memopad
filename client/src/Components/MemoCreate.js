@@ -79,7 +79,6 @@ class MemoCreate extends Component {
         }
         this.addMemo()
             .then((response) => {
-            console.log(response);
             this.props.stateRefresh();
         }) //데이터가 넘어왔을 시에 리프레시
        this.setState({
