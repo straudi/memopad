@@ -91,7 +91,7 @@ class App extends Component {
     }
 
     focus = () => {
-        this.setState((state) => ({focused: !state.focusd}))
+        this.setState((state) => ({focused: !state.focusd})) //focus 반전시킴
     }
 
     render() {

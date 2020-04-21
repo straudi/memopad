@@ -69,7 +69,7 @@ class MemoCreate extends Component {
       };
 
     inputFormSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault(); //submit할 경우 페이지 재로딩됨 방지 
         const valid = this.validation();
         if (!valid) {
             console.log("error", this.state);
